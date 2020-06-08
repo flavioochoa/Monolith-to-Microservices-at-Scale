@@ -3,6 +3,9 @@ This app uses:
 2. Ionic Cli
 3. AWS RDS - PostgreSQL instance, Postbird tool, and an S3 bucket
 4. Docker Desktop 
+5. kubectl
+6. Travis
+7. Docker Hub
 
 ### Instructions
 The project is composed by the following sub folders:
@@ -16,16 +19,19 @@ The project is composed by the following sub folders:
     npm install
  ```
 
+This project has CI/CD using travis. When a change is merged travis-ci will build and deploy to Docker Hub the app.
+
 #### Create Docker Images for our application
 1. Build the images: `docker-compose -f ./udacity-c3-deployment/docker/docker-compose-build.yaml --parallel`
-2. Push the images: `docker-compose -f docker-compose-build.yaml push` //optional
+2. Push the images: `docker-compose -f docker-compose-build.yaml push` (optional)
 3. Run the container: `docker-compose up`
 
 #### Add Kubernetes config for our application
  ```bash 
     cd udacity-c3-deployment/k8s
  ```
-1. Apply all files to cluster with your data: `kubectl apply -f {file} `
+1. Connect to your cluster using kubectl 
+2. Apply all files to cluster with your data: `kubectl apply -f {file} `
 
 
 ### Notes
