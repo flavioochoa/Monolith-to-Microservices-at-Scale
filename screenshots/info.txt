@@ -1,0 +1,5 @@
+repository
+https://github.com/flavioochoa/Monolith-to-Microservices-at-Scale
+
+docker hub
+https://hub.docker.com/u/flavio0choa
