@@ -25,38 +25,38 @@ spec:
         env:
         - name: URL
           valueFrom:
-            configMapKeyRef:
-              name: env-config
+            secretKeyRef:
+              name: env-secret
               key: URL
         - name: AWS_BUCKET
           valueFrom:
-            configMapKeyRef:
-              name: env-config
+            secretKeyRef:
+              name: env-secret
               key: AWS_BUCKET
         - name: AWS_PROFILE
           valueFrom:
-            configMapKeyRef:
-              name: env-config
+            secretKeyRef:
+              name: env-secret
               key: AWS_PROFILE
         - name: AWS_REGION
           valueFrom:
-            configMapKeyRef:
-              name: env-config
+            secretKeyRef:
+              name: env-secret
               key: AWS_REGION
         - name: JWT_SECRET
           valueFrom:
-            configMapKeyRef:
-              name: env-config
+            secretKeyRef:
+              name: env-secret
               key: JWT_SECRET
         - name: POSTGRESS_DB
           valueFrom:
-            configMapKeyRef:
-              name: env-config
+            secretKeyRef:
+              name: env-secret
               key: POSTGRESS_DB
         - name: POSTGRESS_HOST
           valueFrom:
-            configMapKeyRef:
-              name: env-config
+            secretKeyRef:
+              name: env-secret
               key: POSTGRESS_HOST
         - name: POSTGRESS_PASSWORD
           valueFrom:
@@ -76,18 +76,4 @@ spec:
       volumes:
       - name: aws-secret
         secret:
-          secretName: aws-secret       
-
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: "backend-feed"
-spec:
-  selector:
-    app: backend-feed
-  type: LoadBalancer
-  ports:
-  - protocol: TCP
-    port: 80
-    targetPort: 8080
+          secretName: aws-secret

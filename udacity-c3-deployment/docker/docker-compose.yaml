@@ -22,6 +22,8 @@ services:
       AWS_BUCKET: $AWS_BUCKET
       JWT_SECRET: $JWT_SECRET
       URL: "http://localhost:8100"
+    env_file:
+      - ./.env
   backend-feed:
     image: flavio0choa/udacity-restapi-feed:latest
     environment:
@@ -36,6 +38,12 @@ services:
       AWS_BUCKET: $AWS_BUCKET
       JWT_SECRET: $JWT_SECRET
       URL: "http://localhost:8100"
+      aws_access_key_id: $AWS_ACCESS_KEY_ID
+      aws_secret_access_key: $AWS_SECRET_ACCESS_KEY
+    env_file:
+      - ./.env
+    volumes:
+      - $HOME:/root/.aws #$home should have the path to aws credentials
   frontend:
     image: flavio0choa/udacity-frontend:latest
     ports:
