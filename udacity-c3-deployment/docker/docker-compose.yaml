@@ -1,7 +1,7 @@
 version: "3"
 services:
   reverseproxy:
-      image: flavioochoa/reverseproxy:latest
+      image: flavio0choa/reverseproxy:latest
       ports:
           - 8080:8080
       restart: always
@@ -9,34 +9,42 @@ services:
         - backend-user
         - backend-feed     
   backend-user:
-    image: flavioochoa/udacity-restapi-user:latest
-    volumes:
-      - C:\Users\flavio.ochoa\.aws:/root/.aws
+    image: flavio0choa/udacity-restapi-user:latest
     environment:
       POSTGRESS_USERNAME: $POSTGRESS_USERNAME
       POSTGRESS_PASSWORD: $POSTGRESS_PASSWORD 
       POSTGRESS_DB: $POSTGRESS_DB 
       POSTGRESS_HOST: $POSTGRESS_HOST 
+      AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
+      AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
       AWS_REGION: $AWS_REGION 
       AWS_PROFILE: $AWS_PROFILE 
       AWS_BUCKET: $AWS_BUCKET
       JWT_SECRET: $JWT_SECRET
       URL: "http://localhost:8100"
+    env_file:
+      - ./.env
   backend-feed:
-    image: flavioochoa/udacity-restapi-feed:latest
-    volumes:
-      - C:\Users\flavio.ochoa\.aws:/root/.aws
+    image: flavio0choa/udacity-restapi-feed:latest
     environment:
       POSTGRESS_USERNAME: $POSTGRESS_USERNAME
       POSTGRESS_PASSWORD: $POSTGRESS_PASSWORD 
       POSTGRESS_DB: $POSTGRESS_DB 
-      POSTGRESS_HOST: $POSTGRESS_HOST 
+      POSTGRESS_HOST: $POSTGRESS_HOST
+      AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
+      AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
       AWS_REGION: $AWS_REGION 
       AWS_PROFILE: $AWS_PROFILE 
       AWS_BUCKET: $AWS_BUCKET
       JWT_SECRET: $JWT_SECRET
       URL: "http://localhost:8100"
+      aws_access_key_id: $AWS_ACCESS_KEY_ID
+      aws_secret_access_key: $AWS_SECRET_ACCESS_KEY
+    env_file:
+      - ./.env
+    volumes:
+      - $HOME:/root/.aws #$home should have the path to aws credentials
   frontend:
-    image: flavioochoa/udacity-frontend:local
+    image: flavio0choa/udacity-frontend:latest
     ports:
       - "8100:80"
